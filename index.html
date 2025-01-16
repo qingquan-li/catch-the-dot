@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <title>Catch the Dot</title>
+  <style>
+    /* Basic styling for our small game area */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 30px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #gameArea {
+      display: inline-block;
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border: 3px solid #444;
+      margin-bottom: 10px;
+    }
+
+    /* The red "dot" you have to catch */
+    #target {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Score display style */
+    #score {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+  <h1>Catch the Dot!</h1>
+  
+  <!-- The game area holding our moving target -->
+  <div id="gameArea">
+    <div id="target"></div>
+  </div>
+  
+  <!-- Display the current score -->
+  <div id="score">Score: 0</div>
+
+  <script>
+    let score = 0;
+    const target = document.getElementById('target');
+    const gameArea = document.getElementById('gameArea');
+    const scoreDisplay = document.getElementById('score');
+
+    // When the user clicks on the dot, increment the score and move the dot
+    target.addEventListener('click', () => {
+      score++;
+      scoreDisplay.textContent = 'Score: ' + score;
+      moveTarget();
+    });
+
+    // Move the dot to a random position within the game area
+    function moveTarget() {
+      const maxX = gameArea.clientWidth - target.offsetWidth;
+      const maxY = gameArea.clientHeight - target.offsetHeight;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      
+      target.style.left = randomX + 'px';
+      target.style.top = randomY + 'px';
+    }
+
+    // Initial move
+    moveTarget();
+  </script>
 </body>
 </html>
